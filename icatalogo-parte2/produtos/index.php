@@ -9,9 +9,9 @@
 </head>
 
 <body>
-    <header>
-        <input type="search" placeholder="Pesquisar" />
-    </header>
+    <?php
+        include("../componentes/header.php");
+    ?>
     <div class="content">
         <section class="produtos-container">
             <header>
