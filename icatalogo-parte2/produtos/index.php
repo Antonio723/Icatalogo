@@ -1,5 +1,11 @@
+<?php
+session_start();
+?>
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,13 +16,17 @@
 
 <body>
     <?php
-        include("../componentes/header.php");
+    include("../componentes/header/header.php");
     ?>
     <div class="content">
         <section class="produtos-container">
             <header>
-                <button onclick="javascript:window.location.href ='./novo/'">Novo Produto</button>
-                <button>Adicionar Categoria</button>
+                <?php
+                if ($_SESSION["secao"] == true) {
+                ?>
+                    <button onclick="javascript:window.location.href ='./novo/'">Novo Produto</button>
+                    <button>Adicionar Categoria</button>
+                <?php } ?>
             </header>
             <main>
                 <article class="card-produto">
