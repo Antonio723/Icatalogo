@@ -104,7 +104,7 @@
           </div>
           <input type="hidden" name="acao" value="inserir" accept="image/*"/>
           <button type="button"  onclick="javascript: window.location.href = '../novo'">Cancelar</button>
-          <button>Nova Categoria </button>
+          <button>Adicionar</button>
         </form>
       </main>
     </section>
