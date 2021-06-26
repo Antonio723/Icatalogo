@@ -4,7 +4,8 @@ namespace App\Core;
 
 class Router{
     private $controller;
-    private $method ="index";
+    private $controllerMethod ="index";
+    private $httpMethod ="GET";
     private $params;
     
     function __construct(){
@@ -27,6 +28,36 @@ class Router{
 
         //instancia o controller
         $this->controller = new $this->controller;
+
+        //pegando o HTTP Method
+
+        $_SERVER["REQUEST_METHOD"];
+
+        ///pegando o metodo do controller baseando-se no http Method
+        switch($this->httpMethod){
+
+            case "GET":
+                $this->controllerMethod = "index";
+            break;
+            
+            case "POST":
+                $this->controllerMethod = "store";
+            break;
+            
+            case "PUT":
+                $this->controllerMethod = "update";
+            break;
+            
+            case "DELETE":
+                $this->controllerMethod = "delete";
+            break;
+            
+            default:
+                echo "Método não habilitado";
+            exit;
+            
+        }
+
 
         //se ouver um metodo na url e ele existir no controller atribuimos ao atributo method
         if(isset($url[2])){
