@@ -1,5 +1,8 @@
 <div class="categorias-container">
-    <h1>Lista de categorias</h1>
+    <div style="display: flex; align-items:center; justify-content:center; gap:10px; margin-bottom:40px;">
+        <h1 style="margin:0;">Lista de categorias</h1>
+        <button id="addCategoria" style="border-radius:50%; ">+</button>    
+    </div>
 
     <?php
     if (count($dados) == 0) {
@@ -10,13 +13,26 @@
     ?>
         <div class="card-categorias">
             <?= $categoria->descricao ?>
-            <img onclick="deletar(<?= $categoria->id ?>)" src="https://icons.veryicon.com/png/o/construction-tools/coca-design/delete-189.png" />
+            <div>
+                <img onclick="deletarCategoria(<?= $categoria->id ?>)" src="/imgs/trash.svg" />
+                <img onclick="editarCategoria(<?= $categoria->id ?>)" src="/imgs/edit.svg" />
+            </div>
+            
         </div>
     <?php } ?>
-    <form id="form-deletar" method="POST" action="./acoes_categorias.php">
-
-        <input type="hidden" name="acao" value="deletar" />
-        <input id="categoria-id" type="hidden" name="categoriaId" value="" />
-
-    </form>
 </div>
+
+<script>
+    document.querySelector("#addCategoria").addEventListener("click", ()=>{
+        window.location = "/categorias/create"
+    });
+
+    function deletarCategoria(id){
+        window.location = `/categorias/destroy/${id}`;
+    }
+
+    function editarCategoria(id){
+        window.location = `/categorias/edit/${id}`;
+    }
+
+</script>
