@@ -26,4 +26,23 @@ class Produto{
         }
     }
 
+    public function bucarporid($id){
+        $sql = "SELECT p.*, c.descricao as categoria 
+                  FROM tbl_produto p 
+                 INNER JOIN  tbl_categoria c 
+                    ON p.categoria_id = c.id 
+                 where p.id = ?";
+        $stmt = Model::getConexao() -> prepare($sql);
+        $stmt->bindValue(1,$id);
+        $stmt->execute();
+
+        if($stmt -> rowCount() >0){
+            $resultado = $stmt -> fetchAll(\PDO::FETCH_OBJ);
+            return $resultado;
+        }else{
+            return [];
+        }
+    }
+
+
 }
