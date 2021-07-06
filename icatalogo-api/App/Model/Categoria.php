@@ -20,7 +20,7 @@ class Categoria{
     }
 
     public function inserir(){
-        $sql = "INSERT INTO tbl_categoria (descrricao) values(AQUI!!!!)";
+        $sql = "INSERT INTO tbl_categoria (descricao) values (?)";
 
         $stmt = MODEL::getConexao()->prepare($sql);
         $stmt->bindValue(1, $this->descricao);
@@ -32,6 +32,73 @@ class Categoria{
         }else{
             return false;
         }
+    }
+
+    public function edit(){
+        $sql = "SELECT * FROM tbl_categoria where id = ?";
+        $stmt = MODEL::getConexao()->prepare($sql);
+        $stmt->bindValue(1, $this->id);
+        $stmt->execute();
+
+        if($stmt->rowCount()>0){
+            $categoria = $stmt->fetch(PDO::FETCH_OBJ);
+
+            $this-> id = $categoria->id;
+            $this-> descricao = $categoria->descricao;
+            return $this;
+        }else{
+            return false;
+        }
+    }
+
+    public function buscarPorId($id){
+
+        $sql = " SELECT * FROM tbl_categoria WHERE id = ? ";
+
+        $stmt = Model::getConexao()->prepare($sql);
+        $stmt->bindValue(1, $id);
+        $stmt->execute();
+
+        if ($stmt->rowCount() > 0) {
+            $categoria = $stmt->fetch(PDO::FETCH_OBJ);
+            $this->id = $categoria->id;
+            $this->descricao = $categoria->descricao;
+            return $this;
+        } else {
+            return false;
+        }
+    }
+
+    public function atualizar(){
+        $sql = "UPDATE tbl_categoria SET descricao = ? WHERE id = ?";
+
+        $stmt = Model::getConexao()->prepare($sql);
+        $stmt->bindParam(1, $this->descricao);
+        $stmt->bindParam(2, $this->id);
+        return $stmt->execute();
+    }
+
+    public function deletar(){
+        $sql = "DELETE FROM tbl_categoria where id=?";
+        $stmt = Model::getConexao()->prepare($sql);
+        $stmt->bindValue(1, $this->id);
+
+        return $stmt->execute();
+    }
+
+    public function verificarProdutos(){
+        $sql = "SELECT * FROM tbl_categoria c INNER JOIN tbl_produto p on p.categoria_id = c.id WHERE c.id=?";
+
+        $stmt = Model::getConexao()->prepare($sql);
+        $stmt->bindParam(1, $this->id);
+        $stmt->execute();
+        
+        if($stmt -> rowCount() > 0){
+            return true;
+        }else{
+            return false;
+        }
+
     }
 
 }

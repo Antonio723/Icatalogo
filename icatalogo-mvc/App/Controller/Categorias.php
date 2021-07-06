@@ -58,14 +58,22 @@ class Categorias extends Controller{
     }
 
     public function update($id){
+
+        $erros = $this->validarCampos();
+        if($erros>0){
+            $_SESSION["erros"] = $erros;
+            header("location: /categorias/edit/".$id);
+            exit();
+        }
+
         $categoriaModel = $this->model("Categoria");
         $categoriaModel->id = $id;
         $categoriaModel->descricao = $_POST["descricao"];
        
         if($categoriaModel->atualizar()){
-            $_SESSION["mensagem"]= "Aqui foi, e ai?";
+            $_SESSION["mensagem"]= "Categoria atualizada com sucesso";
         }else{
-            $_SESSION["mensagem"]= "Aqui foi, e ai?";
+            $_SESSION["mensagem"]= "Opa categoria não removida, tivemos um erro";
         }
         header("location: /categorias");
     }

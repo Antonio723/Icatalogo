@@ -7,7 +7,7 @@ class Model{
 
    
    public static function getConexao(){
-      if(!isset($conexao)){
+      if(!isset(self :: $conexao)){
          self :: $conexao = new \PDO("mysql:host=localhost; port=3306; dbname=icatalogo;","root","manolo");
       
       }

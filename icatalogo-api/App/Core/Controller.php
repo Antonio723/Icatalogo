@@ -8,8 +8,9 @@ class Controller{
         return new $model;
     }
 
-    public function view($view, $dados = []){
-        require_once "../App/View/template.php";
+    protected function getRequestBody(){
+        $json = file_get_contents("php://input");
+        $obj = json_decode($json);
+        return $obj;
     }
-
 }
